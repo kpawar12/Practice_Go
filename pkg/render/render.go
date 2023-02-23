@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"mynamespace/pkg/config"
+	"mynamespace/pkg/handlers"
 	"net/http"
 	"path/filepath"
 )
@@ -17,7 +18,7 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td handlers.TemplateData) {
 
 	var tc map[string]*template.Template
 
