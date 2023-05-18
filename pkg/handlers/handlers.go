@@ -2,23 +2,12 @@ package handlers
 
 import (
 	"mynamespace/pkg/config"
+	"mynamespace/pkg/models"
 	"mynamespace/pkg/render"
 	"net/http"
 )
 
 var Repo *Repository
-
-// Template Data holds data sent from handlers to templates
-type TemplateData struct {
-	StringMap map[string]string
-	IntMap    map[string]int
-	FloatMap  map[string]float32
-	Data      map[string]interface{}
-	CSRFToken string
-	Flash     string
-	Warning   string
-	Error     string
-}
 
 type Repository struct {
 	App *config.AppConfig
@@ -35,9 +24,15 @@ func NewHandlers(r *Repository) {
 }
 
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "home.page.tmpl")
+	render.RenderTemplate(w, "home.page.tmpl", &models.TemplateData{})
 }
 
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "about.page.tmpl")
+
+	stringMap := make(map[string]string)
+	stringMap["test"] = "Hello, again."
+	
+	render.RenderTemplate(w, "about.page.tmpl", &models.TemplateData{
+		StringMap: stringMap,
+	})
 }
